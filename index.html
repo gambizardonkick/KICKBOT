@@ -1,0 +1,311 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> KICK BOT</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="https://kick.com/img/kick-logo.svg">
+
+<script src="script1.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo-section">
+                <img src="https://kick.com/img/kick-logo.svg" alt="Kick Logo" class="logo">
+                <h1 class="app-title">SNK KICK SPAMMER</h1>
+            </div>
+            <div class="header-info">
+                <span id="connectionStatus" class="status-indicator offline">● Not Connected</span>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <nav class="nav-menu">
+                    <button class="nav-btn active" data-tab="spam">
+                        <span class="nav-icon">🤖</span>
+                        Chat Spammer
+                    </button>
+                    <button class="nav-btn" data-tab="tokens">
+                        <span class="nav-icon">🔑</span>
+                        Token Manager
+                    </button>
+                    <button class="nav-btn" data-tab="messages">
+                        <span class="nav-icon">💾</span>
+                        Saved Messages
+                    </button>
+                    <button class="nav-btn" data-tab="settings">
+                        <span class="nav-icon">⚙️</span>
+                        Settings
+                    </button>
+                </nav>
+                <div class="sidebar-footer">
+                    <p class="creator-info">Created by SNK</p>
+                </div>
+            </aside>
+
+            <!-- Content Area -->
+            <section class="content-area">
+                <!-- Chat Spammer Tab -->
+                <div id="spam-tab" class="tab-content active">
+                    <div class="tab-header">
+                        <h2>Chat Spammer</h2>
+                        <div class="tab-status">
+                            <span id="spamStatus" class="status-text">Ready</span>
+                        </div>
+                    </div>
+
+                    <div class="spam-controls">
+                        <div class="input-group">
+                            <label>Channel:</label>
+                            <div class="input-with-button">
+                                <input type="text" id="channelInput" placeholder="Enter channel name or full URL..." class="input-field">
+                                <button id="connectBtn" class="btn btn-primary">Connect</button>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Message Content:</label>
+                            <div class="input-with-options">
+                                <textarea id="messageInput" placeholder="Enter your message or use Pastebin link" class="input-field textarea"></textarea>
+                                <div class="input-options">
+                                    <button id="fetchPastebinBtn" class="btn btn-secondary">Fetch from Pastebin</button>
+                                    <button id="clearMessageBtn" class="btn btn-outline">Clear</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="controls-row">
+                            <div class="input-group small">
+                                <label>Message Count:</label>
+                                <input type="number" id="countInput" value="1" min="1" class="input-field small">
+                            </div>
+                            <div class="input-group small">
+                                <label>Active Tokens:</label>
+                                <select id="tokenSelect" class="input-field small">
+                                    <option value="all">All Tokens</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="randomEmoteCheckbox">
+                                <span>Add Random Emotes</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="bypassEmoteOnlyCheckbox">
+                                <span>Bypass Emote Only</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="rotateTokensCheckbox" checked>
+                                <span>Rotate Tokens</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="continuousSpamCheckbox">
+                                <span>Continuous Spam</span>
+                            </label>
+                        </div>
+
+                        <div class="emote-shortcuts">
+                            <label>Quick Emotes:</label>
+                            <div class="emote-buttons">
+                                <button class="emote-btn" data-emote="[emote:37226:KEKW]" title="KEKW">
+                                    <img src="https://files.kick.com/emotes/37226/fullsize" alt="KEKW">
+                                </button>
+                                <button class="emote-btn" data-emote="[emote:4147892:PatrickBoo]" title="PatrickBoo">
+                                    <img src="https://files.kick.com/emotes/4147892/fullsize" alt="PatrickBoo">
+                                </button>
+                                <button class="emote-btn" data-emote="[emote:37236:ThisIsFine]" title="ThisIsFine">
+                                    <img src="https://files.kick.com/emotes/37236/fullsize" alt="ThisIsFine">
+                                </button>
+                                <button class="emote-btn" data-emote="[emote:37244:modCheck]" title="modCheck">
+                                    <img src="https://files.kick.com/emotes/37244/fullsize" alt="modCheck">
+                                </button>
+                                <button class="emote-btn" data-emote="[emote:39273:MuteD]" title="MuteD">
+                                    <img src="https://files.kick.com/emotes/39273/fullsize" alt="MuteD">
+                                </button>
+                                <button class="emote-btn" data-emote="[emote:37239:WeSmart]" title="WeSmart">
+                                    <img src="https://files.kick.com/emotes/37239/fullsize" alt="WeSmart">
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button id="spamButton" class="btn btn-success btn-large">
+                                <span>🚀</span> Start Spamming
+                            </button>
+                            <button id="stopButton" class="btn btn-danger btn-large" disabled>
+                                <span>⏹️</span> Stop
+                            </button>
+                        </div>
+
+                        <div class="progress-section">
+                            <div class="progress-bar-container">
+                                <div id="progressBar" class="progress-bar"></div>
+                            </div>
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <div class="stat-label">Messages Sent:</div>
+                                    <div class="stat-value">
+                                        <span class="loading-animation">⏳</span>
+                                        <span id="messagesSent">0</span>
+                                    </div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-label">Messages Failed:</div>
+                                    <div class="stat-value">
+                                        <span class="loading-animation">⏳</span>
+                                        <span id="messagesFailed">0</span>
+                                    </div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-label">Chatroom Bans:</div>
+                                    <div class="stat-value">
+                                        <span class="loading-animation">⏳</span>
+                                        <span id="chatroomBans">0</span>
+                                    </div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-label">Accounts Banned:</div>
+                                    <div class="stat-value">
+                                        <span class="loading-animation">⏳</span>
+                                        <span id="accountsBanned">0</span>
+                                    </div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-label">Accounts Flagged:</div>
+                                    <div class="stat-value">
+                                        <span class="loading-animation">⏳</span>
+                                        <span id="accountsFlagged">0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Token Manager Tab -->
+                <div id="tokens-tab" class="tab-content">
+                    <div class="tab-header">
+                        <h2>Token Manager</h2>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button id="addTokenBtn" class="btn btn-primary">Add Token</button>
+                            <button id="batchImportBtn" class="btn btn-secondary">Import Multiple Tokens</button>
+                        </div>
+                    </div>
+
+                    <div class="token-list" id="tokenList">
+                        <!-- Tokens will be added here dynamically -->
+                    </div>
+
+                    <div class="token-stats">
+                        <div class="stat-card">
+                            <h3>Total Tokens</h3>
+                            <span id="totalTokens">0</span>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Active Tokens</h3>
+                            <span id="activeTokens">0</span>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Banned Tokens</h3>
+                            <span id="bannedTokens">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Saved Messages Tab -->
+                <div id="messages-tab" class="tab-content">
+                    <div class="tab-header">
+                        <h2>Saved Messages</h2>
+                        <button id="addMessageBtn" class="btn btn-primary">Save Current Message</button>
+                    </div>
+
+                    <div class="message-list" id="messageList">
+                        <!-- Messages will be added here dynamically -->
+                    </div>
+                </div>
+
+                <!-- Settings Tab -->
+                <div id="settings-tab" class="tab-content">
+                    <div class="tab-header">
+                        <h2>Settings</h2>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3>General Settings</h3>
+                        
+                        <div class="setting-item">
+                            <label>Max Concurrent Requests:</label>
+                            <input type="number" id="maxConcurrent" value="5" min="1" class="input-field">
+                        </div>
+                        <div class="setting-item">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="autoRotateTokens" checked>
+                                <span>Auto-rotate tokens on rate limit</span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="showNotifications" checked>
+                                <span>Show notifications</span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="backgroundSpamming" checked>
+                                <span>Enable continuous spamming (continues when tab is closed)</span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <button id="saveSettingsBtn" class="btn btn-primary">Save Settings</button>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3>Data Management</h3>
+                        <button id="exportDataBtn" class="btn btn-secondary">Export All Data</button>
+                        <button id="importDataBtn" class="btn btn-secondary">Import Data</button>
+                        <button id="clearDataBtn" class="btn btn-danger">Clear All Data</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Notifications Container -->
+        <div id="notificationContainer" class="notification-container"></div>
+
+        <!-- Add Token Modal -->
+        <div id="tokenModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Add Token</h3>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <label>Token:</label>
+                        <textarea id="tokenValue" placeholder="Paste your bearer token" class="input-field textarea"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="saveTokenBtn" class="btn btn-primary">Add</button>
+                    <button id="cancelTokenBtn" class="btn btn-outline">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating particles background -->
+    <div class="particles" id="particles"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
